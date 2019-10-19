@@ -1,0 +1,6 @@
+
+__pycache__/
+
+# maybe also useful to ignore:
+# data/
+# results/
