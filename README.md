@@ -44,13 +44,13 @@ This script takes a non-negative space and performs a hyperparameter grid search
 
 ### Data
 the `data/` directory contains
-- `chunks/` — 10 files with \~10k words each, taken from the wikipedia corpus **[SOURCE]**
+- `chunks/` — 10 files with \~10k words each, taken from a [wikipedia corpus](https://archive.org/details/enwiki-20181120 "Wikimedia dump from 2018-11-20")
 - `MEN_dataset_natural_form_full` — a human-annotated list of word pair similarities, taken from [Bruni et al. (2014)](https://staff.fnwi.uva.nl/e.bruni/MEN)
 
 Any outputs go to the `results/` directory or subdirectories created at runtime.
 
 
-## Unstable parts and Further Work
+## Instabilities and Further Work
 - There is an option to count co-occurrences line by line. However, this option is not tested.
 - There is an option to count, hash, and evaluate part-of-speech tagged data. However, this is not stable.
 - `Incrementor.py` and `Fruitfly.py` implement a functionality to reduce the number of dimensions and input nodes, respectively, to counteract their inflation by infrequent words. This is not described in Preissner & Herbelot (2019) *[to be published]*.
