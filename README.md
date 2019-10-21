@@ -44,7 +44,7 @@ This script takes a non-negative space and performs a hyperparameter grid search
 
 ### Data
 the `data/` directory contains
-- `chunks/` — 10 files with \~10k words each, taken from a [wikipedia corpus](https://archive.org/details/enwiki-20181120 "Wikimedia dump from 2018-11-20")
+- `chunks/` — 10 files with \~10k words each, taken from a [Wikipedia corpus](https://archive.org/details/enwiki-20181120 "Wikimedia dump from 2018-11-20")
 - `MEN_dataset_natural_form_full` — a human-annotated list of word pair similarities, taken from [Bruni et al. (2014)](https://staff.fnwi.uva.nl/e.bruni/MEN)
 
 Any outputs go to the `results/` directory or subdirectories created at runtime.
