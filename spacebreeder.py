@@ -99,40 +99,40 @@ def setup_loop_environment():
     :return: Incrementor -- main component of the script
     """
     # Make a list of file paths to be passed one by one to an Incrementor object
-    try:
-        corpus_files = []
-        if os.path.isfile(corpus_dir):
-            corpus_files = [corpus_dir]
-        else:
-            for (dirpath, dirnames, filenames) in os.walk(corpus_dir):
-                corpus_files.extend([dirpath + "/" + f for f in filenames])
-        # Create the initial FFA beforehand because Incrementor can't do custom FFA initialization
-        initial_fly_file = fly_dir + "fly_run_0.cfg"
-        first_fly = Fruitfly.from_scratch(pn_size=pns, kc_size=kcs, proj_size=con,
-                                          hash_percent=red, max_pn_size=max_pns, flattening=flat, )
-        first_fly.log_params(filename=initial_fly_file, timestamp=False)
-        """
-        The constructor of Incrementor 
-        1) reads in text files from a directory (if specified)
-        2) computes a frequency distribution over the current text 
-        3) sets up or loads a Fruitfly object from an already-logged Fruitfly
-        4) sets up or loads a co-occurence matrix, with a limit if specified
-        - matrix_incremental=False because it would need to load an existing matrix; 
-          however, in this setup, as only one Incrementor object is used, 
-          it can increment all the way from an initial matrix.
-        - corpus_linewise=False because it cannot be handled by the loop as of now. 
-        - Initialization without corpus. File paths are passed to the Incrementor via the loop.
-        """
-        breeder = Incrementor(None, count_file,
-                              corpus_tokenize=tokenize, corpus_linewise=False, corpus_checkvoc=overlap_file,
-                              matrix_incremental=False, matrix_maxdims=max_dims, min_count=min_count,
-                              contentwords_only=postag_simple, fly_new=False, fly_grow=True, fly_file=initial_fly_file,
-                              verbose=verbose)
-    except Exception as e:
-        with open(errorlog, "a") as f:
-            f.write(str(e)[:500]+"\n")
-        print("An error occured while setting up the loop environment. Check", errorlog, "for further information.")
-        sys.exit()
+    #try:
+    corpus_files = []
+    if os.path.isfile(corpus_dir):
+        corpus_files = [corpus_dir]
+    else:
+        for (dirpath, dirnames, filenames) in os.walk(corpus_dir):
+            corpus_files.extend([dirpath + "/" + f for f in filenames])
+    # Create the initial FFA beforehand because Incrementor can't do custom FFA initialization
+    initial_fly_file = fly_dir + "fly_run_0.cfg"
+    first_fly = Fruitfly.from_scratch(pn_size=pns, kc_size=kcs, proj_size=con,
+                                      hash_percent=red, max_pn_size=max_pns, flattening=flat)
+    first_fly.log_params(filename=initial_fly_file, timestamp=False)
+    """
+    The constructor of Incrementor 
+    1) reads in text files from a directory (if specified)
+    2) computes a frequency distribution over the current text 
+    3) sets up or loads a Fruitfly object from an already-logged Fruitfly
+    4) sets up or loads a co-occurence matrix, with a limit if specified
+    - matrix_incremental=False because it would need to load an existing matrix; 
+      however, in this setup, as only one Incrementor object is used, 
+      it can increment all the way from an initial matrix.
+    - corpus_linewise=False because it cannot be handled by the loop as of now. 
+    - Initialization without corpus. File paths are passed to the Incrementor via the loop.
+    """
+    breeder = Incrementor(None, count_file,
+                          corpus_tokenize=tokenize, corpus_linewise=False, corpus_checkvoc=overlap_file,
+                          matrix_incremental=False, matrix_maxdims=max_dims, min_count=min_count,
+                          contentwords_only=postag_simple, fly_new=False, fly_grow=True, fly_file=initial_fly_file,
+                          verbose=verbose)
+    #except Exception as e:
+    #    with open(errorlog, "a") as f:
+    #        f.write(str(e)[:500]+"\n")
+    #    print("An error occured while setting up the loop environment. Check", errorlog, "for further information.")
+    #    sys.exit()
 
     return corpus_files, breeder
 

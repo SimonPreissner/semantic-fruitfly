@@ -124,8 +124,8 @@ class Incrementor:
 
             for file in filepaths:
                 try:
+                    if verbose: print("reading text from ",file,"...")
                     with open(file) as f:
-                        if verbose: print("reading text from ",file,"...", end=" ")
                         for line in f:
                             lc += 1
                             line = line.rstrip().lower()

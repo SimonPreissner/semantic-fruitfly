@@ -44,7 +44,7 @@ class Fruitfly:
         self.kc_layer = np.zeros(self.kc_size)
 
         # arrays of PNs that are connected to any one KC 
-        self.proj_functions = old_proj if old_proj is not None else self.create_projections
+        self.proj_functions = old_proj if old_proj is not None else self.create_projections()
         self.pn_to_kc = self.forward_connections([i for i in range(self.pn_size)])
 
     @classmethod
@@ -159,7 +159,7 @@ class Fruitfly:
                     "kc_factor\t"   + str(self.kc_factor)+"\n"+\
                     "kc_size\t"     + str(self.kc_size)+"\n"+\
                     "proj_size\t"   + str(self.proj_size)+"\n"+\
-                    "hash-perc\t"   + str(self.hash_percent)+"\n"+ \
+                    "hash_perc\t"   + str(self.hash_percent)+"\n"+ \
                     "flattening\t"  + str(self.flattening) + "\n" + \
                     "max_pn_size\t" + str(self.max_pn_size)
         return statement
