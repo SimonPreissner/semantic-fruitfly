@@ -186,6 +186,7 @@ def prepare_flight():
     :return unhashed_space: {str:[float]} -- words and their corresponding co-occurrence counts
     :return_words_to_i: {str:int} -- mapping of context words to their position in the count
     """
+    if verbose: print("Preparing hashing ...")
     unhashed_space = utils.readDM(breeder.outspace)
     i_to_words, words_to_i = utils.readCols(breeder.outcols)
     # only select words that will be needed for evaluation:
@@ -218,7 +219,11 @@ def eval_and_log_FFA(count_these, hashed_space, space_ind, t_count, t_cooc_del, 
     spb, tsb = MEN.compute_men_spearman(unhashed_space, testset_file)
     spa, tsa = MEN.compute_men_spearman(hashed_space, testset_file)
     sp_diff = spa - spb
-    if verbose: print("Spearman correlations of the spaces (before/after flying, diff):", spb,"/", spa, sp_diff)
+    if verbose:
+        print("Spearman correlations:")
+        print("\tbefore hashing:", round(spb, 4))
+        print("\tafter hashing: ", round(spa, 4))
+        print("\tdifference:    ", round(sp_diff, 4))
     connectednesses = [len(cons) for cons in breeder.fruitfly.pn_to_kc.values()]
     avg_PN_con = round(sum(connectednesses) / breeder.fruitfly.pn_size, 6)
     var_PN_con = round(float(np.var(connectednesses, ddof=1)), 6)
@@ -300,16 +305,16 @@ def execute_w2v(w2v_min_count, w2v_space_file, w2v_vocab_file):
     # run the w2v code
     t0 = time.time()
     try:
-        os.system(w2v_exe_file + " " +
-                  "-train " + w2v_corpus_file +
-                  "-output " + w2v_space_file +
-                  "-size 300 " +
-                  "-window " + str(window) +
-                  "-sample 1e-3 " +
-                  "-negative 10 " +
-                  "-iter 1 " +
-                  "-min-count " + str(w2v_min_count) +
-                  "-save-vocab " + w2v_vocab_file)
+        os.system(w2v_exe_file +
+                  " -train " + w2v_corpus_file +
+                  " -output " + w2v_space_file +
+                  " -size 300 " +
+                  " -window " + str(window) +
+                  " -sample 1e-3 " +
+                  " -negative 10 " +
+                  " -iter 1 " +
+                  " -min-count " + str(w2v_min_count) +
+                  " -save-vocab " + w2v_vocab_file)
     except Exception as e:
         with open(errorlog, "a") as f:
             f.write(str(e)[:500]+"\n")
@@ -446,7 +451,7 @@ if __name__ == '__main__':
             if verbose: print("End of run " + str(run) + ".\n\n")
 
     log_final_summary(performance_summary)
-    print("Finished all runs. Total time taken:",time.time()-runtime_zero,"\ndone.")
+    print("Total time taken:",round((time.time()-runtime_zero)/60, 2),"minutes.\ndone.")
 
 
 

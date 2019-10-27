@@ -530,7 +530,7 @@ class Incrementor:
         else:
             # freq (current words) and words_to_i (all words encountered so far) might differ
             counted_freq_words = set(self.words_to_i).intersection(set(self.freq))
-            if verbose: print("Deleting infrequent words (less than",self.min_count,"occurrences) from the count matrix...")
+            if verbose: print("Deleting infrequent words (less than",self.min_count+1,"occurrences) from the count matrix...")
             delete_these_w = [w for w in counted_freq_words if self.freq[w]<=self.min_count]
             delete_these_i = [self.words_to_i[w] for w in delete_these_w]
             # delete rows and columns from the count matrix
