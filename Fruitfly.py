@@ -136,11 +136,10 @@ class Fruitfly:
         :return: {int:[int]} -- mapping of PN index to connected KC indices
         """
         pn_indices = [pn_indices] if type(pn_indices) != list else pn_indices
-        print("\nCreating index of projections...")
 
         # { pn_index : [connected KCs] }
         pn_to_kc = {pn:[] for pn in pn_indices}
-        for kc,connections in tqdm(self.proj_functions.items()):
+        for kc,connections in self.proj_functions.items():
             # only for the PNs given to the method!
             for pn in pn_indices:
                 if pn in connections:
