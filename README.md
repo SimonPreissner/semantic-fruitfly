@@ -1,4 +1,4 @@
-# semantic-fruitfly -- The Original
+# semantic-fruitfly – The Original
 
 ### What's this?
 This is the code described in [Preissner & Herbelot (2019)](http://ceur-ws.org/Vol-2481/paper59.pdf "To be Fair: a Case for Cognitively-Inspired Models of Meaning"). It provides an environment for an application of the Fruitfly Algorithm (FFA) to distributional semantics (DS). 
